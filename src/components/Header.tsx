@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 
@@ -21,7 +22,6 @@ export function Header() {
       const scrollingDown = y > lastY + 2;
 
       if (!pastHero) {
-        // Still in / near hero — keep nav active
         setVisible(true);
       } else if (scrollingUp) {
         setVisible(true);
@@ -51,16 +51,23 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-30 border-b border-ink/5 bg-surface/90 backdrop-blur-md transition-transform duration-300 ease-out ${
+      className={`fixed inset-x-0 top-0 z-30 border-b border-ink/10 bg-surface/85 backdrop-blur-md transition-transform duration-300 ease-out ${
         visible ? "translate-y-0" : "-translate-y-full pointer-events-none"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-5 md:h-[68px] md:px-8 lg:px-10">
-        <a
-          href="#top"
-          className="font-display text-lg font-semibold tracking-[-0.03em] text-ink md:text-xl"
-        >
-          {site.name}
+      <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-5 md:h-[72px] md:px-8 lg:px-10">
+        <a href="#top" className="flex items-center gap-3">
+          <Image
+            src="/images/logo.jpg"
+            alt={`${site.name} logo`}
+            width={44}
+            height={44}
+            className="size-10 rounded-full object-cover mix-blend-multiply md:size-11"
+            priority
+          />
+          <span className="font-display text-lg font-semibold tracking-[-0.03em] text-ink md:text-xl">
+            {site.name}
+          </span>
         </a>
         <nav className="hidden items-center gap-8 text-[13px] font-medium tracking-[0.14em] text-ink-soft uppercase md:flex">
           <a href="#menu" className="transition-colors hover:text-accent">

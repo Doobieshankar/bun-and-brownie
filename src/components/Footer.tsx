@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { mapsUrl, site } from "@/lib/site";
 
 export function Footer() {
@@ -5,6 +6,13 @@ export function Footer() {
     <footer className="border-t border-on-ink/10 bg-ink text-on-ink">
       <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 px-5 py-12 md:grid-cols-3 md:px-10 xl:px-16">
         <div>
+          <Image
+            src="/images/logo.jpg"
+            alt={`${site.name} logo`}
+            width={64}
+            height={64}
+            className="mb-4 size-14 rounded-full object-cover"
+          />
           <p className="font-display text-2xl font-semibold tracking-[-0.03em]">
             {site.name}
           </p>

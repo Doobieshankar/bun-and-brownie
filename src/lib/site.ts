@@ -1,7 +1,7 @@
 export const site = {
   name: "Bun & Brownie",
   handle: "@bun_and_brownie",
-  tagline: "Fresh buns. Rich brownies. Warm hearts.",
+  tagline: "Fresh buns, rich brownies, warm hearts.",
   about:
     "Bun & Brownie is a local bakery and dessert home-venture in Tumkur (Tumakuru), known for fresh buns, maska buns, fudgy brownies, and tiramisu tins.",
   city: "Tumkur",
