@@ -1,0 +1,48 @@
+# Bun & Brownie — free Neon + Cloudinary deploy
+
+Same pattern as Transfinity: Neon Postgres for content, Cloudinary for images, Netlify for the Next.js site.
+
+## 1) Neon
+
+1. Create a project at https://console.neon.tech
+2. Copy the **pooled** connection string
+3. Locally: put it in `.env.local` as `DATABASE_URL`
+4. Apply schema + seed:
+
+```bash
+bun run db:push
+bun run db:seed
+```
+
+## 2) Cloudinary
+
+1. Create a free account at https://cloudinary.com
+2. Copy Cloud name, API Key, API Secret into `.env.local`
+3. Uploads from `/admin` go to folder `bun-and-brownie`
+
+## 3) Admin password
+
+Set in `.env.local` / Netlify:
+
+- `ADMIN_PASSWORD` — what you type at `/admin/login`
+- `ADMIN_SESSION_SECRET` — long random string for the signed cookie
+
+## 4) Netlify env
+
+In Netlify → Site settings → Environment variables, add:
+
+- `DATABASE_URL`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+- `ADMIN_PASSWORD`
+- `ADMIN_SESSION_SECRET`
+
+Then redeploy. Open `https://YOUR-SITE.netlify.app/admin/login`.
+
+## 5) What admins can edit
+
+- **Popular menu** products: name, description, price, image, order, visibility
+- **Featured combo**: eyebrow, headline, title, price, note, image, WhatsApp prefill text
+
+Without `DATABASE_URL`, the public site still renders using the fallback values in `src/lib/site.ts`.

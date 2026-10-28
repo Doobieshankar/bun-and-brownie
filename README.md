@@ -4,23 +4,21 @@ Family bakery site for **Bun & Brownie**, Tumkur (Kotitopu).
 
 - Stack: Next.js + Bun + Tailwind
 - Live deploy: Netlify (free) ← connected to this GitHub repo
+- Content CMS: Neon Postgres + Cloudinary + `/admin` (see [DEPLOY-DB.md](./DEPLOY-DB.md))
 
 ## Local development
 
 ```bash
 bun install
+cp .env.example .env.local   # fill Neon + Cloudinary + admin secrets
+bun run db:push
+bun run db:seed
 bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). Admin: [http://localhost:3000/admin/login](http://localhost:3000/admin/login).
 
-## Content to edit later
-
-Business copy, menu prices, and links live in:
-
-`src/lib/site.ts`
-
-When you add a database later, that file is the first place to replace with API data.
+Without `DATABASE_URL`, the site still runs using fallback copy in `src/lib/site.ts`.
 
 ## Deploy pipeline (GitHub → Netlify)
 
@@ -28,36 +26,15 @@ When you add a database later, that file is the first place to replace with API 
 you edit code → git push origin main → Netlify builds → site updates
 ```
 
-1. This repo is on GitHub under **Doobieshankar**
-2. Netlify watches the `main` branch
-3. Every push rebuilds the site automatically (free tier)
-
-### First-time Netlify setup (one time)
-
-1. Sign up at [https://app.netlify.com](https://app.netlify.com) with **GitHub** (same Doobieshankar account)
-2. **Add new site** → **Import an existing project**
-3. Pick **`Doobieshankar/bun-and-brownie`**
-4. Build settings (usually auto-detected from `netlify.toml`):
-   - Build command: `bun run build`
-   - Publish directory: `.next`
-5. Click **Deploy site**
-6. Netlify gives a free URL like `https://something.netlify.app`  
-   You can rename it under **Site configuration → Domain management**
-
-### After that
-
-```bash
-git add .
-git commit -m "your message"
-git push
-```
-
-Wait 1–2 minutes → refresh the Netlify URL.
+Add the env vars from `.env.example` in Netlify (details in `DEPLOY-DB.md`).
 
 ## Scripts
 
-| Command        | What it does              |
-|----------------|---------------------------|
-| `bun run dev`  | Local site                |
-| `bun run build`| Production build          |
-| `bun run start`| Run production build locally |
+| Command           | What it does                         |
+|-------------------|--------------------------------------|
+| `bun run dev`     | Local site                           |
+| `bun run build`   | Production build                     |
+| `bun run start`   | Run production build locally         |
+| `bun run db:push` | Push Drizzle schema to Neon          |
+| `bun run db:seed` | Seed menu + combo from site fallbacks |
+| `bun run db:studio` | Open Drizzle Studio                |
