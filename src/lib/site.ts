@@ -4,6 +4,7 @@ export const site = {
   tagline: "Fresh buns, rich brownies, warm hearts.",
   about:
     "Bun & Brownie is a local bakery and dessert home-venture in Tumkur (Tumakuru), known for fresh buns, maska buns, fudgy brownies, and tiramisu tins.",
+  founders: ["Kokila", "Karthikeshwar", "Daishreeya"] as const,
   city: "Tumkur",
   cityAlt: "Tumakuru",
   address:

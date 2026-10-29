@@ -22,6 +22,14 @@ export function Footer() {
           <p className="mt-4 max-w-[36ch] text-sm leading-relaxed text-on-ink/50">
             {site.about}
           </p>
+          <p className="mt-5 text-sm leading-relaxed text-on-ink/55">
+            <span className="text-[11px] font-semibold tracking-[0.16em] text-on-ink/40 uppercase">
+              Founders
+            </span>
+            <span className="mt-2 block font-display text-base font-semibold tracking-[-0.02em] text-on-ink/80">
+              {site.founders.join(", ")}
+            </span>
+          </p>
         </div>
 
         <div className="text-sm text-on-ink/60">

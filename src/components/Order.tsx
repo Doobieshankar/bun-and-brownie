@@ -31,6 +31,14 @@ export function Order() {
               {site.about} Order on WhatsApp, or get delivery through Swiggy and
               Zomato. Bulk and party orders welcome.
             </p>
+            <p className="mt-5 text-sm text-ink-soft">
+              <span className="text-[11px] font-semibold tracking-[0.18em] text-muted uppercase">
+                Founders
+              </span>
+              <span className="mt-1.5 block font-display text-lg font-semibold tracking-[-0.02em] text-ink">
+                {site.founders.join(", ")}
+              </span>
+            </p>
           </div>
 
           <div className="flex flex-col gap-3 lg:col-span-5 lg:justify-self-end">
