@@ -29,7 +29,7 @@ export async function uploadSiteImage(
 
   const key = safeKey(filename);
   const store = getStore({ name: "bb-uploads", consistency: "strong" });
-  await store.set(key, buffer, {
+  await store.set(key, new Uint8Array(buffer), {
     metadata: { contentType: mimeType, filename },
   });
 
