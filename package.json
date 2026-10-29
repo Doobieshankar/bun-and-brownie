@@ -10,25 +10,33 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
+    "db:apply": "bun scripts/db-apply.ts",
     "db:seed": "bun scripts/seed.ts",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:ping": "bun scripts/neon-ping.ts"
   },
   "dependencies": {
+    "@neon/config": "^1.9.5",
+    "@neon/env": "^1.6.6",
     "@neondatabase/serverless": "^1.2.0",
     "@phosphor-icons/react": "^2.1.10",
     "cloudinary": "^2.11.0",
     "drizzle-orm": "^0.45.4",
     "motion": "^14.6.0",
     "next": "16.4.3",
+    "pg": "^8.23.1",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "ws": "^8.22.0"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.16.4",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/ws": "^8.18.2",
     "dotenv": "^18.0.9",
     "drizzle-kit": "^0.31.11",
     "eslint": "^9",

@@ -1,12 +1,26 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { WhatsappLogo } from "@phosphor-icons/react";
 import { site } from "@/lib/site";
 
-export function Hero() {
+type Props = {
+  comboPrice: string;
+};
+
+export function Hero({ comboPrice }: Props) {
   const reduce = useReducedMotion();
+  const [entered, setEntered] = useState(false);
+
+  // Same markup on server + first client paint; enter only after mount.
+  useEffect(() => {
+    const id = window.requestAnimationFrame(() => setEntered(true));
+    return () => window.cancelAnimationFrame(id);
+  }, []);
+
+  const show = entered;
 
   return (
     <section
@@ -19,54 +33,42 @@ export function Hero() {
       />
 
       <div className="relative z-10 flex flex-col justify-end px-5 pb-12 pt-24 md:px-10 md:pb-16 lg:justify-center lg:self-center lg:px-10 lg:py-0 xl:px-16">
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.55,
-            delay: reduce ? 0 : 0.06,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="mb-5 text-[11px] font-semibold tracking-[0.22em] text-muted uppercase"
+        <p
+          className={`mb-5 text-[11px] font-semibold tracking-[0.22em] text-muted uppercase transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            show
+              ? "translate-y-0 opacity-100"
+              : "translate-y-3 opacity-0"
+          }`}
         >
           Home baked in {site.city}
-        </motion.p>
+        </p>
 
-        <motion.h1
-          initial={reduce ? false : { opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.7,
-            delay: reduce ? 0 : 0.12,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="max-w-[9ch] font-display text-[clamp(3rem,6.5vw,5rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-ink"
+        <h1
+          className={`max-w-[9ch] font-display text-[clamp(3rem,6.5vw,5rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-ink transition-[opacity,transform] duration-700 delay-75 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            show
+              ? "translate-y-0 opacity-100"
+              : "translate-y-5 opacity-0"
+          }`}
         >
           {site.name}
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.65,
-            delay: reduce ? 0 : 0.24,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="mt-5 max-w-[28ch] text-lg leading-relaxed text-ink-soft md:text-xl"
+        <p
+          className={`mt-5 max-w-[28ch] text-lg leading-relaxed text-ink-soft transition-[opacity,transform] duration-700 delay-150 ease-[cubic-bezier(0.22,1,0.36,1)] md:text-xl ${
+            show
+              ? "translate-y-0 opacity-100"
+              : "translate-y-4 opacity-0"
+          }`}
         >
           {site.tagline}
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.6,
-            delay: reduce ? 0 : 0.32,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="mt-9 flex flex-wrap items-center gap-4"
+        <div
+          className={`mt-9 flex flex-wrap items-center gap-4 transition-[opacity,transform] duration-500 delay-200 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            show
+              ? "translate-y-0 opacity-100"
+              : "translate-y-3 opacity-0"
+          }`}
         >
           <a
             href={site.whatsapp}
@@ -78,30 +80,32 @@ export function Hero() {
             {site.whatsappLabel}
           </a>
           <a href="#combo" className="bb-btn-glow">
-            <span className="bb-btn-glow__inner">See the ₹300 combo</span>
+            <span className="bb-btn-glow__inner">
+              See the {comboPrice} combo
+            </span>
           </a>
-        </motion.div>
+        </div>
       </div>
 
-      <motion.div
-        initial={reduce ? false : { opacity: 0, x: 28, scale: 1.04 }}
-        animate={{ opacity: 1, x: 0, scale: 1 }}
-        transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-        className="relative min-h-[46vh] p-4 md:p-6 lg:flex lg:min-h-0 lg:items-center lg:p-0 lg:pr-8 xl:pr-12"
+      <div
+        className={`relative min-h-[46vh] p-4 transition-[opacity,transform] duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] md:p-6 lg:flex lg:min-h-0 lg:items-center lg:p-0 lg:pr-8 xl:pr-12 ${
+          show
+            ? "translate-x-0 scale-100 opacity-100"
+            : "translate-x-7 scale-[1.04] opacity-0"
+        }`}
       >
         <div className="bb-media relative aspect-[4/5] h-full min-h-[42vh] w-full overflow-hidden rounded-2xl lg:aspect-auto lg:h-[min(680px,72vh)] lg:min-h-0 lg:rounded-3xl">
           <motion.div
             className="absolute inset-0"
+            initial={false}
             animate={
-              reduce
-                ? undefined
-                : {
-                    scale: [1, 1.045, 1],
-                  }
+              entered && !reduce
+                ? { scale: [1, 1.045, 1] }
+                : { scale: 1 }
             }
             transition={{
               duration: 14,
-              repeat: Infinity,
+              repeat: entered && !reduce ? Infinity : 0,
               ease: "easeInOut",
             }}
           >
@@ -115,7 +119,7 @@ export function Hero() {
             />
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

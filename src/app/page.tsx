@@ -15,6 +15,7 @@ async function HomeContent() {
 
   return (
     <>
+      <Hero comboPrice={combo.price} />
       <Combo combo={combo} />
       <Menu items={menuItems} />
     </>
@@ -26,10 +27,10 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <Hero />
         <Suspense
           fallback={
             <>
+              <Hero comboPrice={fallbackCombo.price} />
               <Combo combo={fallbackCombo} />
               <Menu items={fallbackMenu} />
             </>

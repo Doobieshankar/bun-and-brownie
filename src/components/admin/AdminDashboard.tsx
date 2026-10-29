@@ -361,6 +361,14 @@ export function AdminDashboard({
                 <span className="text-sm text-muted">Uploading…</span>
               ) : null}
             </div>
+            <input
+              value={form.imageUrl}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, imageUrl: e.target.value }))
+              }
+              className="mt-3 w-full rounded-xl border border-ink/15 bg-surface px-3 py-2.5 outline-none focus:ring-2 focus:ring-accent"
+              placeholder="/images/combo-tin.jpg or https://…"
+            />
             {form.imageUrl ? (
               <div className="relative mt-3 h-28 w-28 overflow-hidden rounded-xl">
                 <Image

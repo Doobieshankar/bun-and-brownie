@@ -10,6 +10,10 @@ Same pattern as Transfinity: Neon Postgres for content, Cloudinary for images, N
 4. Apply schema + seed:
 
 ```bash
+# Preferred (works even if local DNS is flaky):
+bun run db:apply
+
+# Or, if drizzle-kit can reach Neon directly:
 bun run db:push
 bun run db:seed
 ```

@@ -109,22 +109,29 @@
   .bb-btn::before {
     content: "";
     position: absolute;
-    inset: -20% auto -20% 0;
+    top: 0;
+    left: 0;
     width: 45%;
-    border-radius: inherit;
+    height: 100%;
     background: linear-gradient(
       105deg,
       transparent 0%,
-      transparent 35%,
-      rgba(255, 255, 255, 0.18) 46%,
-      rgba(255, 255, 255, 0.7) 50%,
-      rgba(255, 255, 255, 0.18) 54%,
-      transparent 65%,
+      rgba(255, 255, 255, 0.05) 35%,
+      rgba(255, 255, 255, 0.55) 48%,
+      rgba(255, 255, 255, 0.95) 50%,
+      rgba(255, 255, 255, 0.55) 52%,
+      rgba(255, 255, 255, 0.05) 65%,
       transparent 100%
     );
-    animation: bb-sheen 6.5s ease-in-out infinite;
+    transform: translateX(-130%) skewX(-18deg);
+    animation: bb-sheen 2.2s linear infinite;
     pointer-events: none;
-    mix-blend-mode: screen;
+    will-change: transform;
+  }
+
+  .bb-btn > * {
+    position: relative;
+    z-index: 1;
   }
 
   .bb-btn:hover {
@@ -206,18 +213,11 @@
 }
 
 @keyframes bb-sheen {
-  0%,
-  62% {
-    transform: translateX(-130%) skewX(-16deg);
-    opacity: 0;
+  from {
+    transform: translateX(-130%) skewX(-18deg);
   }
-  72% {
-    opacity: 1;
-  }
-  88%,
-  100% {
-    transform: translateX(230%) skewX(-16deg);
-    opacity: 0;
+  to {
+    transform: translateX(280%) skewX(-18deg);
   }
 }
 
@@ -226,15 +226,8 @@
     scroll-behavior: auto;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
+  /* Keep CTA sheen moving even when OS reduce-motion is on */
   .bb-btn::before {
-    animation: none !important;
+    animation: bb-sheen 2.2s linear infinite !important;
   }
 }
