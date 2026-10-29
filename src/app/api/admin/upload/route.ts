@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jsonError, requireAdmin } from "@/lib/api";
-import { uploadImageBuffer } from "@/lib/cloudinary";
+import { uploadSiteImage } from "@/lib/upload";
 
 export async function POST(request: NextRequest) {
   const unauthorized = await requireAdmin();
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const uploaded = await uploadImageBuffer(
+    const uploaded = await uploadSiteImage(
       buffer,
       file.name || "upload",
       file.type || "image/jpeg",
