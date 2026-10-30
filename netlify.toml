@@ -1,2 +1,0 @@
-# Deprecated: site moved to Vercel to avoid the Free-plan Netlify badge.
-# Kept empty so old Netlify hooks fail closed instead of redeploying.

@@ -77,10 +77,7 @@ export function Combo({ combo }: Props) {
               src={imageSrc}
               alt={combo.title}
               fill
-              unoptimized={
-                imageSrc.startsWith("/api/media/") ||
-                imageSrc.includes("blob.vercel-storage.com")
-              }
+              unoptimized={imageSrc.includes("blob.vercel-storage.com")}
               sizes="(max-width: 1024px) 100vw, 58vw"
               className="object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
             />
