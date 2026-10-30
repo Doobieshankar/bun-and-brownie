@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Manrope, Syne } from "next/font/google";
-import { HideNetlifyBadge } from "@/components/HideNetlifyBadge";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -33,10 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${manrope.variable} ${syne.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-surface font-sans text-ink">
-        <HideNetlifyBadge />
-        {children}
-      </body>
+      <body className="min-h-full bg-surface font-sans text-ink">{children}</body>
     </html>
   );
 }

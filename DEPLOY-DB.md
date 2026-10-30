@@ -1,6 +1,6 @@
 # Bun & Brownie — free Neon + Cloudinary deploy
 
-Same pattern as Transfinity: Neon Postgres for content, Cloudinary for images, Netlify for the Next.js site.
+Same pattern as Transfinity: Neon Postgres for content, Vercel Blob or Cloudinary for images, Vercel for the Next.js site.
 
 ## 1) Neon
 
@@ -31,18 +31,19 @@ Set in `.env.local` / Netlify:
 - `ADMIN_PASSWORD` — what you type at `/admin/login`
 - `ADMIN_SESSION_SECRET` — long random string for the signed cookie
 
-## 4) Netlify env
+## 4) Vercel env
 
-In Netlify → Site settings → Environment variables, add:
+In Vercel → Project → Settings → Environment Variables, add:
 
 - `DATABASE_URL`
-- `CLOUDINARY_CLOUD_NAME`
-- `CLOUDINARY_API_KEY`
-- `CLOUDINARY_API_SECRET`
 - `ADMIN_PASSWORD`
 - `ADMIN_SESSION_SECRET`
+- `BLOB_READ_WRITE_TOKEN` (from Vercel Blob store) **or** Cloudinary vars:
+  - `CLOUDINARY_CLOUD_NAME`
+  - `CLOUDINARY_API_KEY`
+  - `CLOUDINARY_API_SECRET`
 
-Then redeploy. Open `https://YOUR-SITE.netlify.app/admin/login`.
+Deploy. Open `https://YOUR-PROJECT.vercel.app/admin/login`.
 
 ## 5) What admins can edit
 

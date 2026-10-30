@@ -1,15 +1,2 @@
-# Free Netlify hosting for Bun & Brownie (Next.js)
-# Connected repo: push to main → Netlify auto-builds & deploys
-
-[build]
-  command = "bun run build"
-  publish = ".next"
-
-[build.environment]
-  NODE_VERSION = "22"
-  # Netlify installs Bun when bun.lock is present
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-# Pretty URLs / SPA fallback not needed — Next plugin handles routing
+# Deprecated: site moved to Vercel to avoid the Free-plan Netlify badge.
+# Kept empty so old Netlify hooks fail closed instead of redeploying.

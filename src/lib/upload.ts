@@ -1,4 +1,4 @@
-import { getStore } from "@netlify/blobs";
+import { put } from "@vercel/blob";
 import { uploadImageBuffer } from "@/lib/cloudinary";
 
 function cloudinaryReady() {
@@ -7,6 +7,10 @@ function cloudinaryReady() {
       process.env.CLOUDINARY_API_KEY &&
       process.env.CLOUDINARY_API_SECRET,
   );
+}
+
+function vercelBlobReady() {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 }
 
 function safeKey(filename: string) {
@@ -27,18 +31,25 @@ export async function uploadSiteImage(
     return uploadImageBuffer(buffer, filename, mimeType);
   }
 
-  const key = safeKey(filename);
-  const store = getStore({ name: "bb-uploads", consistency: "strong" });
-  const bytes = buffer.buffer.slice(
-    buffer.byteOffset,
-    buffer.byteOffset + buffer.byteLength,
-  ) as ArrayBuffer;
-  await store.set(key, bytes, {
-    metadata: { contentType: mimeType, filename },
-  });
+  if (vercelBlobReady()) {
+    const key = safeKey(filename);
+    const ext = mimeType.includes("png")
+      ? "png"
+      : mimeType.includes("webp")
+        ? "webp"
+        : "jpg";
+    const blob = await put(`bun-and-brownie/${key}.${ext}`, buffer, {
+      access: "public",
+      contentType: mimeType,
+      addRandomSuffix: false,
+    });
+    return {
+      url: blob.url,
+      publicId: key,
+    };
+  }
 
-  return {
-    url: `/api/media/${encodeURIComponent(key)}`,
-    publicId: key,
-  };
+  throw new Error(
+    "Image upload is not configured. Set BLOB_READ_WRITE_TOKEN (Vercel Blob) or Cloudinary env vars, or paste an image URL.",
+  );
 }
