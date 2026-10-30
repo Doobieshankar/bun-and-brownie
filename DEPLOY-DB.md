@@ -49,7 +49,7 @@ In Vercel → Project → Settings → Environment Variables, add:
 - `DATABASE_URL`
 - `ADMIN_PASSWORD`
 - `ADMIN_SESSION_SECRET`
-- `BLOB_READ_WRITE_TOKEN` **or** Cloudinary vars:
+- Blob store connected in Vercel Storage **or** Cloudinary vars:
   - `CLOUDINARY_CLOUD_NAME`
   - `CLOUDINARY_API_KEY`
   - `CLOUDINARY_API_SECRET`
